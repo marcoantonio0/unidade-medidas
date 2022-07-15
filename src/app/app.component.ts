@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { ActivatedRoute, ActivationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,20 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'unidade-medidas';
+  item = new FormControl('');
+  dataItems: any[] = [];
+  title: string = '';
+  constructor(
+    private router: Router
+  ){
+    this.router.events.subscribe(ev => {
+      if(ev instanceof ActivationEnd) {
+        if(ev.snapshot.data['title']){
+          this.title = ev.snapshot.data['title'];
+        }
+      }
+    })
+  }
+  
+
 }

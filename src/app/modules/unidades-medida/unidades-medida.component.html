@@ -1,0 +1,36 @@
+<div class="wrapper">
+    <div class="listWrapper">
+        <mat-card>
+            <div class="loading" *ngIf="isLoading">
+                <mat-spinner diameter="26"></mat-spinner>
+            </div>
+            <div class="loading" *ngIf="!isLoading && unidadesMedidas.length <= 0">
+                Não há unidades de medida.
+            </div>
+            <div *ngIf="!isLoading && unidadesMedidas.length > 0">
+                <mat-card-title>
+                    <span class="mat-title">Mostrando total de {{qtdRegistros}} items</span>
+                </mat-card-title>
+                <mat-card-content>
+                    <mat-list role="list" *ngIf="unidadesMedidas.length > 0">
+                        <mat-list-item role="listitem" *ngFo="let unidade of unidadesMedidas">
+                            <div class="itemWrapper">
+                                <div class="item">
+                                    MM - Milimetros
+                                </div>
+                                <div class="action">
+                                    <button mat-icon-button (click)="deleteUnidade(unidade)">
+                                        <mat-icon class="mat-18">delete</mat-icon>
+                                    </button>
+                                </div>
+                            </div>
+                        </mat-list-item>
+                    </mat-list>
+                </mat-card-content>
+            </div>
+        </mat-card>
+    </div>
+    <div class="newItem">
+        <button mat-raised-button color="primary" [routerLink]="['/setup']">Adicionar</button>
+    </div>
+</div>

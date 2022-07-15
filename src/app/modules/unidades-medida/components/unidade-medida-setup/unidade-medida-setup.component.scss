@@ -1,0 +1,27 @@
+
+
+.card-title {
+    font-size: 18px;
+}
+.mat-card-title {
+    margin-bottom: 1rem;
+}
+
+.contentInner {
+    flex: 1;
+    padding: 1rem;
+}
+
+.saveRow {
+    padding: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    background-color: #F1F1F1;
+    button {
+        width: 120px;
+        height: 40px;
+    }
+}
+
+

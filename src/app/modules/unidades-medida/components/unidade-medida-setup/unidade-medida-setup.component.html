@@ -6,36 +6,37 @@
             </mat-card-title>
             <mat-card-content>
 
-                <div class="row">
+                <form class="row" [formGroup]="medidasGroup">
                     <div class="col-6">
                         <mat-form-field appearance="legacy" style="width: 100%;">
                             <mat-label>Descrição</mat-label>
-                            <input matInput type="text">
+                            <input matInput type="text" formControlName="NOME">
                             <mat-hint>Ex: Metros quadrados</mat-hint>
                         </mat-form-field>
                     </div>
                     <div class="col-3">
                         <mat-form-field appearance="legacy" style="width: 100%;">
                             <mat-label>Sigla</mat-label>
-                            <input matInput type="text">
+                            <input matInput type="text" formControlName="SIGLA">
                             <mat-hint>Ex: MT</mat-hint>
                         </mat-form-field>
                     </div>
                     <div class="col-3">
                         <mat-form-field appearance="legacy" style="width: 100%;">
                             <mat-label>Casas decimais</mat-label>
-                            <input matInput type="text">
-                            <mat-hint>Ex: MT</mat-hint>
+                            <input matInput type="text" formControlName="CASAS_DECIMAIS" [allowNegativeNumbers]="false" mask="separator.9999999999" thousandSeparator="" separatorLimit="9999999999"  >
+                            <mat-hint>Caso seja fracionado. Ex: 1.5 metros</mat-hint>
                         </mat-form-field>
                     </div>
-                  </div>
+                  </form>
               
             </mat-card-content>
         </mat-card>
     </div>
     <div class="saveRow">
-        <button mat-raised-button color="primary">
-         Salvar
+        <button mat-raised-button color="primary" (click)="save()" [disabled]="isLoading">
+          {{ isLoading ? '' : 'Salvar' }}
+          <mat-spinner color="primary" diameter="24" *ngIf="isLoading"></mat-spinner>
         </button>
     </div>
 </div>

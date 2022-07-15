@@ -1,3 +1,5 @@
+import { HttpClientModule } from '@angular/common/http';
+import { ToastrModule } from 'ngx-toastr';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -16,7 +18,9 @@ import {MatSidenavModule} from '@angular/material/sidenav';
     BrowserModule,
     MatToolbarModule,
     AppRoutingModule,
+    ToastrModule.forRoot(),
     MatSidenavModule,
+    HttpClientModule,
     BrowserAnimationsModule
   ],
   providers: [],

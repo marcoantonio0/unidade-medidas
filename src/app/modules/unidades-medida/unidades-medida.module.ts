@@ -14,6 +14,8 @@ import { UnidadeMedidaSetupComponent } from './components/unidade-medida-setup/u
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { UnidadesMedidaService } from './services/unidades-medida.service';
 import { HttpClientModule } from '@angular/common/http';
+import { ToastrModule } from 'ngx-toastr';
+import { NgxMaskModule } from 'ngx-mask';
 
 @NgModule({
   declarations: [
@@ -28,8 +30,10 @@ import { HttpClientModule } from '@angular/common/http';
     ReactiveFormsModule,
     MatButtonModule,
     MatIconModule,
+    NgxMaskModule.forRoot(),
     HttpClientModule,
     MatInputModule,
+    ToastrModule.forRoot(),
     MatFormFieldModule,
     UnidadesMedidaRoutingModule
   ],

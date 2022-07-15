@@ -1,7 +1,8 @@
+import { ToastrService } from 'ngx-toastr';
 import { UnidadesMedidaService } from './services/unidades-medida.service';
 import { Component, OnInit } from '@angular/core';
 import { IUnidadeMedidaItem } from './models/unidade-medida.model';
-import { take } from 'rxjs';
+import { catchError, EMPTY, finalize, map, take, tap } from 'rxjs';
 
 @Component({
   selector: 'app-unidades-medida',
@@ -13,7 +14,8 @@ export class UnidadesMedidaComponent implements OnInit {
   public qtdRegistros = 0;
   public isLoading = false;
   constructor(
-    private unidadesMedidaService: UnidadesMedidaService
+    private unidadesMedidaService: UnidadesMedidaService,
+    private toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -22,23 +24,32 @@ export class UnidadesMedidaComponent implements OnInit {
 
   getUnidadesMedida(){
     this.isLoading = true;
-    this.unidadesMedidaService.getUnidadesMedida().pipe(take(1))
-    .subscribe({
-      next: (result) => {
+    this.unidadesMedidaService.getUnidadesMedida().pipe(
+      map(result => {
         this.qtdRegistros = result.TOTAL_REGISTROS;
         this.unidadesMedidas = result.REGISTROS;
-      },
-      error: (error) => {
-
-      },
-      complete: () => {
+        console.log(this.unidadesMedidas);
+      }),
+      catchError(() => {
+        return EMPTY;
+      }),
+      finalize(() => {
         this.isLoading = false;
-      }
-    })
+      })
+    ).subscribe()
   }
 
   deleteUnidade(item: IUnidadeMedidaItem){
-
+    this.unidadesMedidaService.deleteUnidadeMedida(item.CODIGO).pipe(
+      tap(result => {
+        this.toastr.success('Unidade de medida removida com sucesso.');
+        this.getUnidadesMedida();
+      },
+      catchError(() => {
+        this.toastr.error('Não foi possivel remover unidade de medida.');
+        return EMPTY;
+      })
+    )).subscribe();
   }
 
 }

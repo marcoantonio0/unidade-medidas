@@ -1,7 +1,9 @@
 export interface IUnidadeMedidaItem {
-    description: string;
-    sigla: string;
-    casas_decimais: string;
+    CODIGO: number;
+    NOME: string;
+    SIGLA: string;
+    QUANTIDADE_FRACIONADA: string;
+    CASAS_DECIMAIS: number;
 }
 
 export interface IUnidadeMedidaResponse {

@@ -13,14 +13,14 @@
                 </mat-card-title>
                 <mat-card-content>
                     <mat-list role="list" *ngIf="unidadesMedidas.length > 0">
-                        <mat-list-item role="listitem" *ngFo="let unidade of unidadesMedidas">
+                        <mat-list-item role="listitem" *ngFor="let unidade of unidadesMedidas">
                             <div class="itemWrapper">
                                 <div class="item">
-                                    MM - Milimetros
+                                    {{ unidade.SIGLA }} - {{unidade.NOME}}
                                 </div>
                                 <div class="action">
                                     <button mat-icon-button (click)="deleteUnidade(unidade)">
-                                        <mat-icon class="mat-18">delete</mat-icon>
+                                        <mat-icon class="mat-18">delete_outline</mat-icon>
                                     </button>
                                 </div>
                             </div>

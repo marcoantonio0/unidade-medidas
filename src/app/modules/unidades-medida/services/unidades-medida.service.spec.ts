@@ -1,4 +1,5 @@
-import { IUnidadeMedidaResponse } from './../models/unidade-medida.model';
+import { environment } from './../../../../environments/environment';
+import { IUnidadeMedidaResponse, IUnidadeMedidaItem } from './../models/unidade-medida.model';
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { UnidadesMedidaService } from './unidades-medida.service';
@@ -18,6 +19,7 @@ const mockList: IUnidadeMedidaResponse = {
     }
   ]
 };
+
 
 describe('UnidadesMedidaService', () => {
   let service: UnidadesMedidaService;
@@ -43,5 +45,31 @@ describe('UnidadesMedidaService', () => {
     service.getUnidadesMedida().subscribe(res => mockResponse = res);
 
     expect(mockResponse).toEqual(mockList);
+    expect(httpClient.get).toHaveBeenCalledWith(`${environment.baseUrl}`, { params: { token: environment.token } });
+  })
+
+  it('should call createUnidadeMedida', () => {
+    let mockData: IUnidadeMedidaItem = {
+      CASAS_DECIMAIS: 1,
+      QUANTIDADE_FRACIONADA: 'N',
+      SIGLA: 'MT',
+      NOME: 'Metros quadrados'
+    }
+    let mockResponse: any;
+
+    spyOn(httpClient,'post').and.returnValue(of(mockData));
+    
+    service.createUnidadeMedida(mockData).subscribe(res => mockResponse = res);
+   
+    expect(mockResponse).toEqual(mockData);
+    expect(httpClient.post).toHaveBeenCalledWith(`${environment.baseUrl}`, mockData, { params: { token: environment.token } });
+  })
+
+  it('should call deleteUnidadeMedida', () => {
+    spyOn(httpClient,'delete').and.returnValue(of('success'));
+    let idDelete = 1;
+
+    service.deleteUnidadeMedida(idDelete).subscribe();
+    expect(httpClient.delete).toHaveBeenCalledWith(`${environment.baseUrl}/${idDelete}`, { params: { token: environment.token } });
   })
 });

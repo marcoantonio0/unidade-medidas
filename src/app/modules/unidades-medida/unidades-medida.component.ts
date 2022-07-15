@@ -40,16 +40,18 @@ export class UnidadesMedidaComponent implements OnInit {
   }
 
   deleteUnidade(item: IUnidadeMedidaItem){
-    this.unidadesMedidaService.deleteUnidadeMedida(item.CODIGO).pipe(
-      tap(result => {
-        this.toastr.success('Unidade de medida removida com sucesso.');
-        this.getUnidadesMedida();
-      },
-      catchError(() => {
-        this.toastr.error('Não foi possivel remover unidade de medida.');
-        return EMPTY;
-      })
-    )).subscribe();
+    if(item.CODIGO){
+      this.unidadesMedidaService.deleteUnidadeMedida(item.CODIGO).pipe(
+        tap({
+          next: (result) => {
+            this.toastr.success('Unidade de medida removida com sucesso.');
+            this.getUnidadesMedida();
+          },
+          error: (err) => {
+            this.toastr.error('Houve um erro ao remover unidade de medida.');
+          }
+        })).subscribe();
+    }
   }
 
 }

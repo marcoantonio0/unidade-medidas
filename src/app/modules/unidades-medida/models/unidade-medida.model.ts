@@ -1,8 +1,8 @@
 export interface IUnidadeMedidaItem {
-    CODIGO: number;
+    CODIGO?: number;
     NOME: string;
     SIGLA: string;
-    QUANTIDADE_FRACIONADA: string;
+    QUANTIDADE_FRACIONADA?: string;
     CASAS_DECIMAIS: number;
 }
 

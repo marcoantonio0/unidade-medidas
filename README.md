@@ -1,6 +1,10 @@
 # UnidadeMedidas
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.0.
+Angular version: 13.3.0 with angular Material components 13.3.9
+
+# Some libs used
+ngx-mask: 13.1.15
+ngx-toastr: 13.2.1
 
 ## Development server
 
